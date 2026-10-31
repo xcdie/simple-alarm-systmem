@@ -14,14 +14,14 @@ def check_alarm(alarm_time_str):
     while True:
         current_time = datetime.now().strftime("%H:%M:%S")
         if current_time == alarm_time_str:
-            
             threading.Thread(target=trigger_alarm, daemon=True).start()
             messagebox.showinfo("Alarm", " Wake Up! Time's up!")
             break
-        time.sleep(1)
+        time.sleep(0.5)  
 
 def set_alarm():
-    alarm_time = f"{hour_var.get()}:{minute_var.get()}:{second_var.get()}"
+  
+    alarm_time = f"{hour_var.get().zfill(2)}:{minute_var.get().zfill(2)}:{second_var.get().zfill(2)}"
     messagebox.showinfo("Alarm Set", f"Alarm set for {alarm_time}")
     threading.Thread(target=check_alarm, args=(alarm_time,), daemon=True).start()
 
@@ -39,7 +39,6 @@ frame.pack()
 hour_var = tk.StringVar(value="00")
 minute_var = tk.StringVar(value="00")
 second_var = tk.StringVar(value="00")
-
 
 tk.Entry(frame, textvariable=hour_var, width=3, font=("Arial", 16)).pack(side=tk.LEFT, padx=5)
 tk.Label(frame, text=":", font=("Arial", 16), bg="#f4f4f9").pack(side=tk.LEFT)
